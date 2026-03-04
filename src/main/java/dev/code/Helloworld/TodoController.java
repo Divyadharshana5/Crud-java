@@ -17,8 +17,8 @@ public class TodoController {
     }
 
     //Request Param
-    @GetMapping("/")
-    String getTodoByIdParam(@RequestParam long id){
+    @GetMapping("")
+    String getTodoByIdParam(@RequestParam("todoId") long id){
         return "Todo with Id" + id;
     }
 
