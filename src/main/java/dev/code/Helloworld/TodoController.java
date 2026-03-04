@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/todo")
+@RequestMapping("/api/v1/todo")
 public class TodoController {
     @GetMapping("/get")
         String getTodo(){
