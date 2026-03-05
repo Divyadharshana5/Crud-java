@@ -1,9 +1,8 @@
 package dev.code.Helloworld;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-@Bean
+@Component
 public class TodoRepository {
     String getAllTodos(){
         return "Todo";
