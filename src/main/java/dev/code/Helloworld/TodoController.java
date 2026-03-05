@@ -22,9 +22,8 @@ public class TodoController {
         return "Todo with Id" + id;
     }
 
-    @GetMapping("/create")
-    String createUser (@RequestParam String userId,@RequestParam String password){
-        return "Todo with username:" +userId +" " + "password: " +password ;
+    @PostMapping("/create")
+    String createUser (@RequestBody String body){
+        return body ;
     }
-
 }
