@@ -1,11 +1,12 @@
 package dev.code.Helloworld;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 //Bean
 @Service
 public class TodoService {
-    //Autowire
+    @Autowired
     private TodoRepository todoRepository;
 
 

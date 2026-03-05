@@ -1,12 +1,16 @@
 package dev.code.Helloworld;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/todo")
 public class TodoController {
+    @Autowired
+    private TodoService todoService;
     @GetMapping("/get")
         String getTodo(){
+        todoService.printTodos();
             return "Todo";
     }
 
