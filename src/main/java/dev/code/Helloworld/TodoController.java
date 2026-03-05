@@ -26,4 +26,15 @@ public class TodoController {
     String createUser (@RequestBody String body){
         return body ;
     }
+
+    @PutMapping("/{id}")
+    String updateTodoById(@PathVariable long id){
+        return "Update Todo with Id" + id;
+    }
+
+    @DeleteMapping("/{id}")
+    String deleteTodoById(@PathVariable long id){
+        return "Delete Todo with Id" + id;
+    }
+
 }
