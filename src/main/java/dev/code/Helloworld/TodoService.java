@@ -1,11 +1,14 @@
 package dev.code.Helloworld;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+
+//Bean
+@Service
 public class TodoService {
+    //Autowire
     private TodoRepository todoRepository;
 
-    public TodoService(){
-        todoRepository=new TodoRepository();
-    }
 
     public void printTodos(){
           System.out.println(todoRepository.getAllTodos());
