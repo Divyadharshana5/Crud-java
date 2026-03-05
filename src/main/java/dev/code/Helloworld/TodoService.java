@@ -7,7 +7,7 @@ public class TodoService {
         todoRepository=new TodoRepository();
     }
 
-    public void getTodo(){
-
+    public void printTodos(){
+          System.out.println(todoRepository.getAllTodos());
     }
 }
