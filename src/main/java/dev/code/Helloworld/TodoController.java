@@ -17,9 +17,14 @@ public class TodoController {
     }
 
     //Request Param
-    @GetMapping("")
+    @GetMapping
     String getTodoByIdParam(@RequestParam("todoId") long id){
         return "Todo with Id" + id;
+    }
+
+    @GetMapping("/create")
+    String createUser (@RequestParam String userId,@RequestParam String password){
+        return "Todo with username:" +userId +" " + "password: " +password ;
     }
 
 }
