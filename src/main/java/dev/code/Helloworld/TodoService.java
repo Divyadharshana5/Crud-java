@@ -14,5 +14,9 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
+    public Todo getTodoById(Long id){
+      return todoRepository.getReferenceById(id);
+    }
+
 
 }
