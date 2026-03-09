@@ -20,9 +20,14 @@ public class TodoController {
     //Path Variable
     @GetMapping("/{id}")
     ResponseEntity<Todo> getTodoById(@PathVariable long id){
+        try {
+            Todo createdTodo = todoService.getTodoById(id);
+            return new ResponseEntity<>(createdTodo, HttpStatus.OK)  ;
+        }
+        catch(RuntimeException exception) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND)  ;
 
-        return new ResponseEntity<>(todoService.getTodoById(id), HttpStatus.OK);
-    }
+        }    }
 
     //Request Param
     @GetMapping
@@ -31,9 +36,11 @@ public class TodoController {
     }
 
     @PostMapping("/create")
-    ResponseEntity<Todo> createUser (@RequestBody Todo todo){
-      return new ResponseEntity<>(todoService.createTodo(todo), HttpStatus.CREATED)  ;
+    ResponseEntity<Todo> createUser (@RequestBody Todo todo) {
+            Todo createdTodo = todoService.createTodo(todo);
+            return new ResponseEntity<>(createdTodo, HttpStatus.CREATED)  ;
     }
+
 
     @PutMapping("/{id}")
     String updateTodoById(@PathVariable long id){
