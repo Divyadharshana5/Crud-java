@@ -49,14 +49,14 @@ public class TodoController {
     }
 
 
-    @PutMapping("/{id}")
-    String updateTodoById(@PathVariable long id){
-        return "Update Todo with Id" + id;
+    @PutMapping
+    ResponseEntity<Todo> updateTodoById(@RequestBody Todo todo){
+       return new ResponseEntity<>(todoService.updateTodo(todo),HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    String deleteTodoById(@PathVariable long id){
-        return "Delete Todo with Id" + id;
+    void deleteTodoById(@PathVariable long id){
+     todoService.deleteTodoById(id);
     }
 
 }
