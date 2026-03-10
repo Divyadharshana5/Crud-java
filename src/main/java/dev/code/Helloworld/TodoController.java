@@ -29,6 +29,11 @@ public class TodoController {
 
         }    }
 
+    @GetMapping
+    ResponseEntity<> getTodos(){
+        return new ResponseEntity<>(todoService.getTodos(),HttpStatus.OK);
+    }
+
     //Request Param
     @GetMapping
     String getTodoByIdParam(@RequestParam("todoId") long id){
