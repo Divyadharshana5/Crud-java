@@ -1,6 +1,7 @@
 package dev.code.Helloworld;
 
 import dev.code.Helloworld.models.Todo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/todo")
+@Slf4j
 public class TodoController {
     @Autowired
     private TodoService todoService;
@@ -25,6 +27,9 @@ public class TodoController {
             return new ResponseEntity<>(createdTodo, HttpStatus.OK)  ;
         }
         catch(RuntimeException exception) {
+            log.info("Error");
+            log.warn("");
+            log.error("",exception);
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND)  ;
 
         }    }
