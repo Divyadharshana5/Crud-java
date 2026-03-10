@@ -2,6 +2,8 @@ package dev.code.Helloworld;
 
 import dev.code.Helloworld.models.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,7 @@ import java.util.List;
 public class TodoController {
     @Autowired
     private TodoService todoService;
-    @GetMapping("/get")
-        String getTodo(){
 
-            return "Todo";
-    }
 
     //Path Variable
     @GetMapping("/{id}")
@@ -36,11 +34,11 @@ public class TodoController {
         return new ResponseEntity<List<Todo>>(todoService.getTodos(),HttpStatus.OK);
     }
 
-    //Request Param
-    @GetMapping
-    String getTodoByIdParam(@RequestParam("todoId") long id){
-        return "Todo with Id" + id;
+    @GetMapping("/page")
+    ResponseEntity<Page<Todo>> getTodosPaged(@RequestParam int page, @RequestParam int size){
+      return new ResponseEntity<>(todoService.getAllTodosPages(page,size), HttpStatus.OK);
     }
+
 
     @PostMapping("/create")
     ResponseEntity<Todo> createUser (@RequestBody Todo todo) {
