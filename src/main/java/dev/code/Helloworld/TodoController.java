@@ -1,6 +1,8 @@
 package dev.code.Helloworld;
 
 import dev.code.Helloworld.models.Todo;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
@@ -20,6 +22,11 @@ public class TodoController {
 
 
     //Path Variable
+    @ApiResponses(value= {
+          @ApiResponse(responseCode = "200",description = "Todo Retrieved Successfully"),
+            @ApiResponse(responseCode = "404",description = "Todo was not found!")
+
+    })
     @GetMapping("/{id}")
     ResponseEntity<Todo> getTodoById(@PathVariable long id){
         try {
