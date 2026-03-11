@@ -3,9 +3,11 @@ package dev.code.Helloworld;
 import dev.code.Helloworld.models.Todo;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,58 +17,65 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/todo")
-@Slf4j
 public class TodoController {
+
+    private static final Logger log = LoggerFactory.getLogger(TodoController.class);
+
     @Autowired
     private TodoService todoService;
 
-
-    //Path Variable
-    @ApiResponses(value= {
-          @ApiResponse(responseCode = "200",description = "Todo Retrieved Successfully"),
-            @ApiResponse(responseCode = "404",description = "Todo was not found!")
-
+    // Get Todo by ID
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Todo Retrieved Successfully"),
+            @ApiResponse(responseCode = "404", description = "Todo was not found")
     })
     @GetMapping("/{id}")
-    ResponseEntity<Todo> getTodoById(@PathVariable long id){
+    public ResponseEntity<Todo> getTodoById(@PathVariable long id) {
         try {
-            Todo createdTodo = todoService.getTodoById(id);
-            return new ResponseEntity<>(createdTodo, HttpStatus.OK)  ;
+            Todo todo = todoService.getTodoById(id);
+            return new ResponseEntity<>(todo, HttpStatus.OK);
+        } catch (RuntimeException exception) {
+            log.warn("Todo not found for id {}", id);
+            log.error("Exception while fetching todo", exception);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        catch(RuntimeException exception) {
-            log.info("Error");
-            log.warn("");
-            log.error("",exception);
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND)  ;
+    }
 
-        }    }
-
+    // Get all Todos
     @GetMapping
-    ResponseEntity<List<Todo>> getTodos(){
-        return new ResponseEntity<List<Todo>>(todoService.getTodos(),HttpStatus.OK);
+    public ResponseEntity<List<Todo>> getTodos() {
+        List<Todo> todos = todoService.getTodos();
+        return new ResponseEntity<>(todos, HttpStatus.OK);
     }
 
+    // Get paginated Todos
     @GetMapping("/page")
-    ResponseEntity<Page<Todo>> getTodosPaged(@RequestParam int page, @RequestParam int size){
-      return new ResponseEntity<>(todoService.getAllTodosPages(page,size), HttpStatus.OK);
+    public ResponseEntity<Page<Todo>> getTodosPaged(
+            @RequestParam int page,
+            @RequestParam int size) {
+
+        Page<Todo> todos = todoService.getAllTodosPages(page, size);
+        return new ResponseEntity<>(todos, HttpStatus.OK);
     }
 
-
+    // Create Todo
     @PostMapping("/create")
-    ResponseEntity<Todo> createUser (@RequestBody Todo todo) {
-            Todo createdTodo = todoService.createTodo(todo);
-            return new ResponseEntity<>(createdTodo, HttpStatus.CREATED)  ;
+    public ResponseEntity<Todo> createUser(@RequestBody Todo todo) {
+        Todo createdTodo = todoService.createTodo(todo);
+        return new ResponseEntity<>(createdTodo, HttpStatus.CREATED);
     }
 
-
+    // Update Todo
     @PutMapping
-    ResponseEntity<Todo> updateTodoById(@RequestBody Todo todo){
-       return new ResponseEntity<>(todoService.updateTodo(todo),HttpStatus.OK);
+    public ResponseEntity<Todo> updateTodoById(@RequestBody Todo todo) {
+        Todo updatedTodo = todoService.updateTodo(todo);
+        return new ResponseEntity<>(updatedTodo, HttpStatus.OK);
     }
 
+    // Delete Todo
     @DeleteMapping("/{id}")
-    void deleteTodoById(@PathVariable long id){
-     todoService.deleteTodoById(id);
+    public ResponseEntity<Void> deleteTodoById(@PathVariable long id) {
+        todoService.deleteTodoById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
