@@ -17,8 +17,5 @@ public class Todo {
     @NotBlank
     @Schema(name="title",example="Complete Spring Boot")
     String Title;
-    @NotNull
-    @NotBlank
-    String Description;
     Boolean isCompleted;
 }
