@@ -3,6 +3,8 @@ package dev.code.Helloworld.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -11,7 +13,10 @@ public class Todo {
     @Id
     @GeneratedValue
     Long id;
+    @NotBlank
     String Title;
+    @NotNull
+    @NotBlank
     String Description;
     Boolean isCompleted;
 }
