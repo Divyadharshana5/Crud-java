@@ -33,8 +33,15 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody Map<String, String> body){
+    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> body){
         String email = body.get("email");
         String password=body.get("password");
+
+        var userOptional= userRepository.findByEmail(email);
+        if(userOptional.isEmpty()){
+            return new ResponseEntity<>("User not Registered" ,HttpStatus.UNAUTHORIZED);
+
+        }
+        User user=userOptional.get();
     }
 }
