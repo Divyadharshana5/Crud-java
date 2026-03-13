@@ -53,6 +53,6 @@ public class AuthController {
             return new ResponseEntity<>("Invalid User" ,HttpStatus.UNAUTHORIZED);
         }
         String token=jwtUtil.generateToken(email);
-        return ResponseEntity.ok(Map.of("token",token));
+        return ResponseEntity.ok(Map.of("token",token).toString());
     }
 }
