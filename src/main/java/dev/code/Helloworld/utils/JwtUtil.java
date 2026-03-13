@@ -37,6 +37,7 @@ public class JwtUtil {
 
     public boolean validateJwtToken(String token){
      try{
+         extractEmail(token);
          return true;
 
      } catch(JwtException exception){
