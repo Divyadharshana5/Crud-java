@@ -12,37 +12,15 @@ import java.util.List;
 
 //Bean
 @Service
-public class TodoService {
+public class UserService {
     @Autowired
     private TodoRepository todoRepository;
 
-    public Todo createTodo(Todo todo){
+    public Todo createTodo(Todo todo) {
         return todoRepository.save(todo);
     }
 
-    public Todo getTodoById(Long id){
-      return todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Todo not found"));
-    }
-
-    //Pagination
-    public Page<Todo> getAllTodosPages(int page, int size){
-        Pageable pageable = (Pageable) PageRequest.of(page, size);
-        return todoRepository.findAll((org.springframework.data.domain.Pageable) pageable);
-    }
-
-    public List<Todo> getTodos(){
-        return todoRepository.findAll();
-    }
-
-    public Todo updateTodo(Todo todo){
-        return todoRepository.save(todo);
-    }
-
-    public void deleteTodoById(Long id){
-         todoRepository.delete(getTodoById(id));
-    }
-
-    public void deleteTodo(Todo todo){
-        todoRepository.delete(todo);
+    public Todo getTodoById(Long id) {
+        return todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Todo not found"));
     }
 }
