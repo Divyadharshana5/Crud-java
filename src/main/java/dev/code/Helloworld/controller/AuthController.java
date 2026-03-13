@@ -1,6 +1,8 @@
 package dev.code.Helloworld.controller;
 
+import dev.code.Helloworld.models.User;
 import dev.code.Helloworld.repository.UserRepository;
+import dev.code.Helloworld.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +16,8 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
-
-    private UserRepository userRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Map<String, String> body){
         String email = body.get("email");
@@ -23,7 +25,11 @@ public class AuthController {
 
         if(userRepository.findByEmail(email).isPresent()){
             return new ResponseEntity<>("Email already exists" ,HttpStatus.CONFLICT);
+
         }
+        userService.createUser(User.builder().email(email).password(password).build());
+        return new ResponseEntity<>("Successfully Registered" ,HttpStatus.CREATED);
+
     }
 
     @PostMapping("/login")
