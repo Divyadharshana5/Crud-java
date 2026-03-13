@@ -1,26 +1,23 @@
 package dev.code.Helloworld.service;
 
-import dev.code.Helloworld.models.Todo;
-import dev.code.Helloworld.repository.TodoRepository;
+import dev.code.Helloworld.models.User;
+import dev.code.Helloworld.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.util.List;
+
 
 //Bean
 @Service
 public class UserService {
     @Autowired
-    private TodoRepository todoRepository;
+    private UserRepository userRepository;
 
-    public Todo createTodo(Todo todo) {
-        return todoRepository.save(todo);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
-    public Todo getTodoById(Long id) {
-        return todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Todo not found"));
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
