@@ -3,6 +3,7 @@ package dev.code.Helloworld.controller;
 import dev.code.Helloworld.models.User;
 import dev.code.Helloworld.repository.UserRepository;
 import dev.code.Helloworld.service.UserService;
+import dev.code.Helloworld.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class AuthController {
     private final UserService userService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Map<String, String> body){
@@ -45,5 +47,10 @@ public class AuthController {
 
         }
         User user=userOptional.get();
+        if(!passwordEncoder.matches(password, user.getPassword())){
+            return new ResponseEntity<>("Invalid User" ,HttpStatus.UNAUTHORIZED);
+        }
+        String token=jwtUtil.generateToken(email);
+        return ResponseEntity.ok(Map.of("token",token));
     }
 }
