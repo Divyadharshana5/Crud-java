@@ -1,5 +1,6 @@
 package dev.code.Helloworld.utils;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -21,6 +22,22 @@ public class JwtUtil {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
+    }
 
+
+    public boolean validateJwtToken(String token){
+     try{
+         Jwts.parserBuilder()
+                 .setSigningKey(secretKey)
+                 .build()
+                 .parseClaimsJws(token)
+                 .getBody()
+                 .getSubject();
+         return true;
+
+     } catch(JwtException exception){
+         return false;
+     }
     }
 }
