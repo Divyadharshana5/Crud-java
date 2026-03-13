@@ -34,6 +34,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String loginUser(@RequestBody Map<String, String> body){
-
+        String email = body.get("email");
+        String password=body.get("password");
     }
 }
