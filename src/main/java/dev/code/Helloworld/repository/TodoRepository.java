@@ -1,4 +1,4 @@
-package dev.code.Helloworld;
+package dev.code.Helloworld.repository;
 
 
 import dev.code.Helloworld.models.Todo;
