@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String SECRET = "Dharshana";
+    private final String SECRET = "Software developers typically have key parameters like skills, experience levels, and tools that define their profiles. These can vary by role but often include programming languages, frameworks, and metrics for performance.";
     private final long EXPIRATION = 1000 * 60;
     private final Key secretKey= Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
@@ -25,15 +25,19 @@ public class JwtUtil {
                 .compact();
     }
 
+   public String extractEmail(String token){
+        return          Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+
+   }
 
     public boolean validateJwtToken(String token){
      try{
-         Jwts.parserBuilder()
-                 .setSigningKey(secretKey)
-                 .build()
-                 .parseClaimsJws(token)
-                 .getBody()
-                 .getSubject();
+         extractEmail(token);
          return true;
 
      } catch(JwtException exception){
