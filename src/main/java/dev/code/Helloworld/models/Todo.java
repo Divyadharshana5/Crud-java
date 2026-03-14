@@ -1,24 +1,25 @@
 package dev.code.Helloworld.models;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "todos")
 public class Todo {
-    @jakarta.persistence.Id
-    private Long id1;
+
     @Id
-    @GeneratedValue
-    Long id;
+    private String id;
+
     @NotBlank
-    @Schema(name="title",example="Complete Spring Boot")
-    String Title;
-    Boolean isCompleted;
+    @Schema(name = "title", example = "Complete Spring Boot")
+    private String title;
+
+    private Boolean completed;
+
 }
