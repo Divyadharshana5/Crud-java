@@ -28,6 +28,7 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/auth/**",
@@ -42,6 +43,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration=new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("*")); //deploy pannathukku apro irukkara url
