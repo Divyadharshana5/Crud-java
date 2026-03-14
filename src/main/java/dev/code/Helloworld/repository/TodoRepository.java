@@ -2,8 +2,8 @@ package dev.code.Helloworld.repository;
 
 
 import dev.code.Helloworld.models.Todo;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface TodoRepository extends JpaRepository<Todo, Long> {
+public interface TodoRepository extends MongoRepository<Todo, Long> {
 
 }
