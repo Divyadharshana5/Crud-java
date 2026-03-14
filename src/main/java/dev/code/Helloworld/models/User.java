@@ -1,27 +1,21 @@
 package dev.code.Helloworld.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import io.swagger.v3.oas.annotations.info.Contact;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@Table(name= "UserTable")
+@Document(collection = "users")
 public class User {
     @Id
-    @GeneratedValue
-    Long id;
+    private String id;
+    private String username;
+    private String password;
+    private String email;
 
-    @Email
-    String email;
-    String password;
+    public static Contact builder() {
+        return null;
+    }
+    // Add other fields for JWT/security
 }
